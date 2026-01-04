@@ -22,7 +22,9 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:gen": "pnpm typeorm migration:generate -d src/db/data-source.ts",
     "migration:run": "pnpm typeorm migration:run -d src/db/data-source.ts",
-    "migration:run:prod": "node dist/node_modules/typeorm/cli.js migration:run -d dist/db/data-source.js"
+    "migration:revert": "pnpm typeorm migration:revert -d src/db/data-source.ts",
+    "migration:show": "pnpm typeorm migration:show -d src/db/data-source.ts",
+    "migration:run:prod": "node ./node_modules/typeorm/cli.js migration:run -d dist/db/data-source.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -36,6 +38,7 @@
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
+    "dotenv": "^17.2.3",
     "nodemailer": "^7.0.12",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
