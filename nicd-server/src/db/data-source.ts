@@ -16,11 +16,11 @@ export const dataSourceOptions: DataSourceOptions = {
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'nicd',
   
-  // Entities - include all entity files
-  entities: ['src/**/*.entity.ts'],
+  // Entities - include all entity files (use dist for compiled, src for dev)
+  entities: [path.join(__dirname, '..', '**', '*.entity.{ts,js}')],
   
-  // Migrations
-  migrations: ['src/db/migrations/*.ts'],
+  // Migrations (use dist for compiled, src for dev)
+  migrations: [path.join(__dirname, 'migrations', '*.{ts,js}')],
   
   // Synchronize should be false when using migrations
   synchronize: false,
