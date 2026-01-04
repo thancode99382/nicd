@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { SocialLinksModule } from './social-links/social-links.module';
 import { NotificationModule } from './notification/notification.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { NotificationModule } from './notification/notification.module';
     EmailModule,
     SocialLinksModule,
     NotificationModule,
+    FeedbackModule,
   ],
   controllers: [AppController],
   providers: [AppService],
