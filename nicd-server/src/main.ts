@@ -9,6 +9,9 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Set global API prefix
+  app.setGlobalPrefix('api');
+
   // Global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
@@ -29,13 +32,13 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port, '0.0.0.0');
 
   console.log(`Application is running on: http://0.0.0.0:${port}`);
-  console.log(`Swagger docs available at: http://0.0.0.0:${port}/api/docs`);
+  console.log(`Swagger docs available at: http://0.0.0.0:${port}/docs`);
 
   if (module.hot) {
     module.hot.accept();

@@ -1,19 +1,38 @@
 services:
   # ================================
+  # Nginx Reverse Proxy (Development)
+  # ================================
+  nginx:
+    image: nginx:alpine
+    container_name: nicd-nginx-dev
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - app
+      - client
+    networks:
+      - nicd-network
+
+  # ================================
   # NestJS Application (Development)
   # ================================
   app:
     build:
-      context: .
-      dockerfile: Dockerfile.dev
+      context: ../nicd-server
+      dockerfile: ../infra/server/Dockerfile.dev
     container_name: nicd-server-dev
     restart: unless-stopped
     env_file:
       - .env.local
-    ports:
-      - "${APP_PORT:-8080}:8080"
+    expose:
+      - "3000"
     environment:
       - NODE_ENV=development
+      - PORT=3000
       - DB_HOST=postgres
       - DB_PORT=5432
       - DB_USER=${DB_USER:-postgres}
@@ -29,11 +48,37 @@ services:
       - MAIL_PASS=${MAIL_PASS}
       - MAIL_FROM=${MAIL_FROM:-noreply@nicd.dev}
     volumes:
-      - .:/app
+      - ../nicd-server:/app
       - /app/node_modules
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - nicd-network
+
+  # ================================
+  # Next.js Client Application (Development)
+  # ================================
+  client:
+    build:
+      context: ../nicd-client
+      dockerfile: ../infra/client/Dockerfile.dev
+    container_name: nicd-client-dev
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost/api}
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ../nicd-client:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - app
     networks:
       - nicd-network
 
@@ -47,7 +92,7 @@ services:
     env_file:
       - .env.local
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "5555:5432"
     environment:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
