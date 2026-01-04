@@ -28,6 +28,16 @@ import type { CurrentUserData } from '../auth/decorators/current-user.decorator'
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get()
+  // @UseGuards(JwtAuthGuard)
+  // @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({ status: 200, description: 'Users retrieved successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getAllUsers() {
+    return this.userService.getAllUsers();
+  }
+
   @Get('profile')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

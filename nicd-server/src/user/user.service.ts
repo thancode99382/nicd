@@ -220,4 +220,25 @@ export class UserService {
 
     return ApiResponseBuilder.ok('Account deleted successfully');
   }
+
+  async getAllUsers() {
+    const users = await this.userRepository.find({
+      select: [
+        'user_id',
+        'email',
+        'username',
+        'location',
+        'introduce',
+        'image_url',
+        'position',
+        'jersey_number',
+        'email_verified',
+        'created_at',
+        'updated_at',
+      ],
+      order: { created_at: 'DESC' },
+    });
+
+    return ApiResponseBuilder.ok('Users retrieved successfully', users);
+  }
 }
