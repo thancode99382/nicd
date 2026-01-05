@@ -9,6 +9,15 @@ import { EmailModule } from './email/email.module';
 import { SocialLinksModule } from './social-links/social-links.module';
 import { NotificationModule } from './notification/notification.module';
 import { FeedbackModule } from './feedback/feedback.module';
+import { ConversationModule } from './conversation/conversation.module';
+import { MessageModule } from './message/message.module';
+import { ConversationUserModule } from './conversation-user/conversation-user.module';
+import { TeamUserModule } from './team-user/team-user.module';
+import { TeamModule } from './team/team.module';
+import { MatchModule } from './match/match.module';
+import { TeamUserPollModule } from './team-user-poll/team-user-poll.module';
+import { PollModule } from './poll/poll.module';
+import { MatchModule } from './match/match.module';
 
 @Module({
   imports: [
@@ -23,6 +32,14 @@ import { FeedbackModule } from './feedback/feedback.module';
     SocialLinksModule,
     NotificationModule,
     FeedbackModule,
+    ConversationModule,
+    ConversationUserModule,
+    MessageModule,
+    TeamUserModule,
+    TeamModule,
+    MatchModule,
+    PollModule,
+    TeamUserPollModule,
   ],
   controllers: [AppController],
   providers: [AppService],
