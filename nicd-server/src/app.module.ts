@@ -12,12 +12,11 @@ import { FeedbackModule } from './feedback/feedback.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { MessageModule } from './message/message.module';
 import { ConversationUserModule } from './conversation-user/conversation-user.module';
-import { TeamUserModule } from './team-user/team-user.module';
 import { TeamModule } from './team/team.module';
+import { TeamUserModule } from './team-user/team-user.module';
 import { MatchModule } from './match/match.module';
-import { TeamUserPollModule } from './team-user-poll/team-user-poll.module';
 import { PollModule } from './poll/poll.module';
-import { MatchModule } from './match/match.module';
+import { TeamUserPollModule } from './team-user-poll/team-user-poll.module';
 
 @Module({
   imports: [
@@ -35,8 +34,8 @@ import { MatchModule } from './match/match.module';
     ConversationModule,
     ConversationUserModule,
     MessageModule,
-    TeamUserModule,
     TeamModule,
+    TeamUserModule,
     MatchModule,
     PollModule,
     TeamUserPollModule,
