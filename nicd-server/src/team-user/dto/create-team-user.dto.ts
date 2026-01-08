@@ -22,6 +22,12 @@ export class CreateTeamUserDto {
   @IsOptional()
   role?: TeamUserRole;
 
+  @ApiPropertyOptional({ example: '7', description: 'Preferred jersey number' })
+  @IsString()
+  @IsOptional()
+  @Length(1, 255)
+  jersey_number?: string;
+
   @ApiPropertyOptional({
     example: 'pending',
     enum: TeamUserStatus,

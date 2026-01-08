@@ -41,6 +41,9 @@ export class TeamUser {
   })
   role: TeamUserRole;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  jersey_number: string;
+
   @Column({
     type: 'enum',
     enum: TeamUserStatus,
